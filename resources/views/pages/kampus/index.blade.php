@@ -1,23 +1,14 @@
 @extends('layouts.main')
 @section('container')
           <div class="row">
-             <!-- @if(session()->has('success'))
-                <div class="alert alert-success d-flex align-items-center col-6" role="alert">
-                  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
-                      <div>
-                        {{ session('success') }}
-                      </div>       
-                </div>
-              @endif() -->
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Data Karyawan</h4>
+                  <h4 class="card-title">Data Universitas</h4>
                 <div class="row">
                     <div class="col-12">
                      <div class="d-flex justify-content-end">
-                        <!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalTambah"><i class="icon-plus menu-icon "></i> Add Data</button> -->
-                        <a href="/pages/user-management/create" class="btn btn-info"><i class="icon-plus menu-icon "></i> Add Data</a>
+                        <a href="/pages/kampus/create" class="btn btn-info"><i class="icon-plus menu-icon "></i> Add Data</a>
                      </div>
                   </div>
                 </div>
@@ -26,29 +17,21 @@
                       <thead>
                         <tr>
                           <th>#</th>
-                          <th>NIK</th>
-                          <th>Nama Karyawan</th>
-                          <th>Jabatan</th>
-                          <th>Divisi</th>
-                          <th>Departemen</th>
-                          <th>Sub Departemen</th>
+                          <th>Nama Universitas</th>
+                          <th>Alamat</th>
                           <th>Action</th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($user_management as $data) 
+                        @foreach($kampus as $data) 
                         <tr>
                           <td>{{ $loop->iteration }}</td>
-                          <td>{{ $data->nik }}</td>
-                          <td>{{ $data->nama_karyawan }}</td>
-                          <td>{{ $data->jabatan->nama_jabatan }}</td>
-                          <td>{{ $data->divisi->nama_divisi }}</td>
-                          <td>{{ $data->departemen->nama_departemen }}</td>
-                          <td>{{ $data->subdepartemen->nama_sub_departemen }}</td>
+                          <td>{{ $data->nama_universitas }}</td>
+                          <td>{{ $data->alamat }}</td>
                           <td>
                           <!-- <a href="#" class="badge btn-info"><i class="icon-eye menu-icon "></i> </a> -->
-                          <a href=" {{ route('edit.user', $data->id) }} " class="badge btn-warning"><i class="icon-camera" aria-hidden="true"></i></a>
-                          <form action="{{ route('delete.user', $data->id) }}" method="POST" class="d-inline">
+                          <a href="#" class="badge btn-warning"><i class="icon-camera" aria-hidden="true"></i></a>
+                          <form action="#" method="POST" class="d-inline">
                             @csrf
                             {{ method_field('DELETE') }}
                             <button class="badge btn-danger border-0" onclick="return confirm('Are you sure want to delete this post?')"><i class="icon-trash "></i></button>

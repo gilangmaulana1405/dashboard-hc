@@ -10,6 +10,7 @@ use App\Models\JabatanModel;
 use App\Models\DivisiModel;
 use App\Models\DepartementModel;
 use App\Models\SubDepartementModel;
+use Illuminate\Support\Facades\Validator;
 
 
 class UserManagementController extends Controller
@@ -35,12 +36,14 @@ class UserManagementController extends Controller
      */
     public function create()
     {
-        return view('pages.user-management.create', [
-            'title' => 'Add Data',
-            'nama_jabatan' => JabatanModel::all(),
-            'nama_divisi' => DivisiModel::all(),
-            'nama_departemen' => DepartementModel::all(),
-            'nama_sub_departemen' => SubDepartementModel::all()
+        $user = UserManagementModel::all();
+        $nama_jabatan = JabatanModel::all();
+        $nama_divisi = DivisiModel::all();
+        $nama_departemen = DepartementModel::all();
+        $nama_subdepartemen = SubDepartementModel::all();
+
+        return view('pages.user-management.create', compact('user', 'nama_jabatan', 'nama_divisi', 'nama_departemen', 'nama_subdepartemen'), [
+            'title' => 'Tambah Data'
         ]);
     }
 
@@ -50,18 +53,20 @@ class UserManagementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Validator $validator)
     {
-        // $validatedData = $request->validate([
-        //      'jabatan_id' => 'required',
-        //     'divisi_id' => 'required',
-        //     'departemen_id' => 'required',
-        //     'sub_departemen_id' => 'required',
-        //     'nik' => 'required',
-        //     'nama_karyawan' => 'required'
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'nik' => 'required|unique:m_karyawan_user',
+            'nama_karyawan' => 'required'
+        ]);
 
-        $validatedData = [
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator->errors());        
+        }
+
+        $validated = $validator->validated();
+
+        $validated = [
             'jabatan_id' => $request->jabatan_id,
             'divisi_id' => $request->divisi_id,
             'departemen_id' => $request->departemen_id,
@@ -69,8 +74,8 @@ class UserManagementController extends Controller
             'nik' => $request->nik,
             'nama_karyawan' => $request->nama_karyawan
         ];
-        UserManagementModel::create($validatedData);
-        return redirect('/pages/user-management')->with('success', 'berhasil ditambahkan');
+        UserManagementModel::create($validated);
+        return redirect('/pages/user-management')->with('success', 'Data has been created!');
     }
 
     /**
@@ -79,10 +84,7 @@ class UserManagementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -90,9 +92,17 @@ class UserManagementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $user = UserManagementModel::where('id', $request->id)->first();
+        $nama_jabatan = JabatanModel::all();
+        $nama_divisi = DivisiModel::all();
+        $nama_departemen = DepartementModel::all();
+        $nama_subdepartemen = SubDepartementModel::all();
+
+        return view('pages.user-management.edit', compact('user', 'nama_jabatan', 'nama_divisi', 'nama_departemen', 'nama_subdepartemen'), [
+            'title' => 'Edit Data'
+        ]);
     }
 
     /**
@@ -104,7 +114,17 @@ class UserManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = UserManagementModel::find($id);
+        $data->nik = $request->nik;
+        $data->nama_karyawan = $request->nama_karyawan;
+        $data->jabatan_id = $request->jabatan_id;
+        $data->divisi_id = $request->divisi_id;
+        $data->departemen_id = $request->departemen_id;
+        $data->subdepartemen_id = $request->subdepartemen_id;
+
+        $data->save();
+
+        return redirect('/pages/user-management')->with('success', 'Data has been updated!');
     }
 
     /**
@@ -120,14 +140,14 @@ class UserManagementController extends Controller
         // $data->delete();
         // return redirect('/pages/user-management')->with('success', 'berhasil dihapus');
 
-        $data =UserManagementModel::where('id',$id)->first();
+        $data = UserManagementModel::where('id', $id)->first();
 
         if ($data != null) {
             $data->delete();
-            return redirect('/pages/user-management')->with('success', 'berhasil dihapus');
+            return redirect('/pages/user-management')->with('success', 'Data has been deleted!');
         }
-        return redirect('/pages/user-management')->with('error', 'gagal dihapus');
 
-        }
+
+    }
 
 }

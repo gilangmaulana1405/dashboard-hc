@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\KampusController;
 
 
 /*
@@ -30,6 +31,9 @@ Route::get('/pages/user-management/', [UserManagementController::class, 'index']
 Route::post('/pages/user-management/post', [UserManagementController::class, 'store'])->name('post.user');
 Route::get('/pages/user-management/create', [UserManagementController::class, 'create'])->name('create.user');
 Route::delete('/pages/user-management/delete/{id}', [UserManagementController::class, 'destroy'])->name('delete.user');
+Route::get('/pages/user-management/edit/{id}', [UserManagementController::class, 'edit'])->name('edit.user');
+Route::put('/pages/user-management/update/{id}', [UserManagementController::class, 'update'])->name('update.user');
 
-
+// crud kampus
+Route::resource('/pages/kampus', KampusController::class);
 

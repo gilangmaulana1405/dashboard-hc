@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class DivisiModel extends Model
 {
+
+    use HasFactory;
     protected $table = 'm_divisi';
     protected $fillable = ['id', 'nama_divisi', 'created_at', 'updated_at'];
     protected $guarded = ['id'];
 
     public function usermanagement()
     {
-        return $this->hasMany(UserManagementModel::class);
+        return $this->hasMany(UserManagementModel::class, 'divisi_id');
     }
 }
