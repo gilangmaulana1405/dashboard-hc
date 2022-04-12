@@ -33,7 +33,6 @@ Route::get('/pages/user-management/create', [UserManagementController::class, 'c
 Route::delete('/pages/user-management/delete/{id}', [UserManagementController::class, 'destroy'])->name('delete.user');
 Route::get('/pages/user-management/edit/{id}', [UserManagementController::class, 'edit'])->name('edit.user');
 Route::put('/pages/user-management/update/{id}', [UserManagementController::class, 'update'])->name('update.user');
+Route::get('/pages/user-management/show/{id}', [UserManagementController::class, 'show'])->name('show.user');
 
-// crud kampus
-Route::resource('/pages/kampus', KampusController::class);
 

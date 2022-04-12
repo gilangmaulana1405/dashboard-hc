@@ -14,7 +14,7 @@ class UserManagementModelFactory extends Factory
     public function definition()
     {
         return [
-            'nik' => $this->faker->randomDigit(),
+            'nik' => $this->faker->biasedNumberBetween(1, 10),
             'nama_karyawan' => $this->faker->name(),
             'jabatan_id' => mt_rand(1, 25),
             'divisi_id' => mt_rand(1, 25),

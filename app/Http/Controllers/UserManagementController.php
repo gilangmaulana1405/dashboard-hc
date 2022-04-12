@@ -85,6 +85,15 @@ class UserManagementController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+     public function show(Request $request)
+     {
+        $data = UserManagementModel::where('id', $request->id)->get();
+        return view('pages.user-management.show', [
+            'title' => 'Profile Karyawan',
+            'user_management' => $data
+        ]);
+     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -135,11 +144,6 @@ class UserManagementController extends Controller
      */
     public function destroy($id)
     {
-        // UserManagementModel::destroy($usermanagementmodel->id);
-        // $data = UserManagementModel::find(1);
-        // $data->delete();
-        // return redirect('/pages/user-management')->with('success', 'berhasil dihapus');
-
         $data = UserManagementModel::where('id', $id)->first();
 
         if ($data != null) {

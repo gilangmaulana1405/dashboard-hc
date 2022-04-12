@@ -10,7 +10,7 @@ class JabatanModel extends Model
     use HasFactory;
 
     protected $table = 'm_jabatan';
-    protected $fillable = ['id', 'nama_departemen', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'nama_jabatan', 'created_at', 'updated_at'];
     protected $guarded = ['id'];
 
     public function usermanagement()

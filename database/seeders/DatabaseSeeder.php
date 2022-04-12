@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         DepartementModel::factory(25)->create();
         SubDepartementModel::factory(25)->create();
         UserManagementModel::factory(25)->create();
+
     }
 }

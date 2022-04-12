@@ -46,13 +46,9 @@
                           <td>{{ $data->departemen->nama_departemen }}</td>
                           <td>{{ $data->subdepartemen->nama_sub_departemen }}</td>
                           <td>
-                          <!-- <a href="#" class="badge btn-info"><i class="icon-eye menu-icon "></i> </a> -->
-                          <a href=" {{ route('edit.user', $data->id) }} " class="badge btn-warning"><i class="icon-camera" aria-hidden="true"></i></a>
-                          <form action="{{ route('delete.user', $data->id) }}" method="POST" class="d-inline">
-                            @csrf
-                            {{ method_field('DELETE') }}
-                            <button class="badge btn-danger border-0" onclick="return confirm('Are you sure want to delete this post?')"><i class="icon-trash "></i></button>
-                          </form>
+                          <a href="{{ route('show.user', $data->id) }}" class="badge btn-info"><i class="icon-eye menu-icon "></i> </a>
+                          <a href=" {{ route('edit.user', $data->id) }} " class="badge btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                          <a href="" onclick="handleDelete()" class="badge btn-danger border-0" data-toggle="modal" data-target="#modalDelete"><i class="icon-trash "></i></a>
                           </td>
                         </tr>
                         @endforeach
@@ -76,18 +72,23 @@
     <!-- page-body-wrapper ends -->
 
     <!-- Modal -->
-    <div class="modal fade" id="modalTambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalTambah">Modal title</h5>
-            <button type="button" class="mdi-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title" id="modalDelete">Konfirmasi Hapus Data</h5>
+            <button type="button" class="icon-cross" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            Apakah anda yakin?
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+             <form action="{{ route('delete.user', $data->id) }}" method="POST" class="d-inline">
+               @csrf
+               {{ method_field('DELETE') }}
+               <button class="btn btn-danger">Hapus</button>
+              </form>
           </div>
         </div>
       </div>

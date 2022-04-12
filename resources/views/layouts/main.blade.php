@@ -8,7 +8,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ $title;}}</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" type="text/css">
   <link rel="stylesheet" href="{{ asset('vendors/feather/feather.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/ti-icons/css/themify-icons.css') }}">
   <link rel="stylesheet" href="{{ asset('vendors/css/vendor.bundle.base.css') }}">
@@ -22,9 +22,6 @@
   <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
-
-  <!-- icons -->
-  <link rel="stylesheet" href="{{ asset('vendors/font-awesome/css/font-awesome.css') }}">
 
   <!-- datatables -->
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -52,14 +49,14 @@
      </div>
 
   </div>
-
-  @include('sweetalert::alert')
-
-
+  
   <!-- jquery -->
   <script src="{{ asset('jquery/jquery-3.6.0.min.js') }}"></script>
   <!-- sweetalert2 -->
   <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+  @include('sweetalert::alert')
+
+
 
   <!-- plugins:js -->
   <script src="{{ asset('vendors/js/vendor.bundle.base.js') }}"></script>
@@ -87,34 +84,18 @@
 
   <script>
 
-    // SweetAlert
-    // $('#buttonDelete').on('click', function(){
-    //     Swal.fire({
-    //     title: 'Are you sure?',
-    //     text: "You won't be able to revert this!",
-    //     icon: 'warning',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Yes, delete it!'
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //       Swal.fire(
-    //         'Deleted!',
-    //         'Your file has been deleted.',
-    //         'success'
-    //       )
-    //     }
-    //   })
-    // });
-
-   
+    // modal hapus
+    function handleDelete()
+    {
+        $('#modalDelete').modal('show')
+    }
+  
     // dataTable
     $(document).ready(function() {
         $('#myTable').DataTable();
     });
 
-  // modal 
+  // modal example
   // $(document).ready(function() {
   //   //  function loadData() {
   //   //         $.ajax({
@@ -128,18 +109,9 @@
       
   // });
 
-    // toastr.options.preventDuplicates = true;
-
-    // $.ajaxSetup({
-    //   headers:{
-    //     'X-CSRF-TOKEN' : $( 'meta[name="csrf-token"]' ).attr( 'content' )
-    //   }
-    // })
-
   </script>
 
 
 </body>
 
 </html>
-
